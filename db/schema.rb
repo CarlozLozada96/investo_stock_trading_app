@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_19_121835) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_19_122318) do
   create_table "stocks", force: :cascade do |t|
     t.string "name"
     t.string "symbol"
@@ -19,4 +19,17 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_19_121835) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "transactions", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "stock_id", null: false
+    t.integer "quantity"
+    t.integer "transaction_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["stock_id"], name: "index_transactions_on_stock_id"
+    t.index ["user_id"], name: "index_transactions_on_user_id"
+  end
+
+  add_foreign_key "transactions", "stocks"
+  add_foreign_key "transactions", "users"
 end
